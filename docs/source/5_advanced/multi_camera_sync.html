@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.1. Multiple cameras synchronization &mdash; OrbbecSDK ROS2  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b37f6b4d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/web_html_logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.2. Component node" href="component_node.html" />
+    <link rel="prev" title="5. Advanced" href="advanced.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            OrbbecSDK ROS2
+              <img src="../../_static/orbbec-light_no_colour.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_overview/overview.html">1. Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../1_overview/supported_cameras.html">1.1. Supported cameras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1_overview/supported_platforms.html">1.2. Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2_installation/installation.html">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2_installation/build_the_package.html">2.1. Build the package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/build_the_package.html#get-source-code-of-orbbecsdk-ros2">2.1.1. Get source code of OrbbecSDK_ROS2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/build_the_package.html#install-environment">2.1.2. Install environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/build_the_package.html#build-project">2.1.3. Build project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/build_the_package.html#performance-optimization-suggestions">2.1.4. Performance Optimization Suggestions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/build_the_package.html#optimization-of-usbfs-memory-parameters-in-usb-camera">2.1.4.1. Optimization of usbfs_memory Parameters in USB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/build_the_package.html#optimizing-ros-dds-configuration">2.1.4.2. Optimizing ROS DDS Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../2_installation/package_description.html">2.2. Package  description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#all-available-topics">2.2.1. All available topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#all-available-services">2.2.2. All available services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#all-available-launch-files">2.2.3. All available launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#all-available-yaml-files">2.2.4. All available yaml files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#coordinate-systems">2.2.5. Coordinate systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#ros2-robot-vs-optical-camera-coordination-systems">2.2.5.1. ROS2(Robot) vs Optical(Camera) coordination systems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#camera-sensor-structure">2.2.5.2. Camera sensor structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#tf-from-coordinate-a-to-coordinate-b">2.2.5.3. TF from coordinate A to coordinate B:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../2_installation/package_description.html#useful-configurations">2.2.6. Useful configurations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#use-v4l2-backend">2.2.6.1. Use V4L2 backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#predefined-presets">2.2.6.2. Predefined presets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#depth-work-mode-switch">2.2.6.3. Depth work mode switch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#configuration-of-depth-nfov-and-wfov-modes">2.2.6.4. Configuration of depth NFOV and WFOV modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#network-device-enumeration">2.2.6.5. Network device enumeration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../2_installation/package_description.html#compressed-image">2.2.6.6. Compressed Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../3_start_single_camera/single_camera.html">3. Single camera</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html">3.1. Single camera</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html#start-single-camera">3.1.1. Start single camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html#visualizing-data-in-rviz2">3.1.2. Visualizing data in rviz2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html#display-view-topic-service-param">3.1.3. Display view topic/service/param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html#example-visualizations">3.1.4. Example visualizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../3_start_single_camera/start_single_camera.html#tf-tree-diagram">3.1.5. TF tree diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4_start_multi_camera/multi_camera.html">4. Multiple cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../4_start_multi_camera/start_multi_camera.html">4.1. Multiple cameras</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../4_start_multi_camera/start_multi_camera.html#list-connected-cameras">4.1.1. List connected cameras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4_start_multi_camera/start_multi_camera.html#setup-for-multiple-camera-launch">4.1.2. Setup for multiple camera launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4_start_multi_camera/start_multi_camera.html#running-the-launch-file">4.1.3. Running the launch file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../4_start_multi_camera/start_multi_camera.html#example-tf-configuration-for-two-cameras">4.1.4. Example TF configuration for two cameras</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="advanced.html">5. Advanced</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.1. Multiple cameras synchronization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparation">5.1.1. Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-the-camera-usb-port">5.1.2. Check the camera usb port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-multiple-cameras-synced">5.1.3. Configure multiple cameras synced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-multicamera-synced-launch-py">5.1.4. Run <code class="docutils literal notranslate"><span class="pre">multicamera_synced.launch.py</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-sync-parameters">5.1.5. Advanced sync parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gmsl-camera-example">5.1.6. GMSL camera example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#suggestions-for-multiple-cameras-synchronization">5.1.7. suggestions for multiple cameras synchronization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="component_node.html">5.2. Component node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="component_node.html#creating-a-component-node">5.2.1. Creating a component node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="component_node.html#loading-a-single-node-into-a-component-container">5.2.2. Loading a single node into a component container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="component_node.html#loading-a-launch-py-into-a-component-container">5.2.3. Loading a launch.py into a component container</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zero_copy.html">5.3. Zero-copy communications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="zero_copy.html#efficient-intra-process-communication">5.3.1. Efficient intra-process communication:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zero_copy.html#zero-copy-example">5.3.2. Zero-copy example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zero_copy.html#manually-loading-multiple-components-into-the-same-process">5.3.3. Manually loading multiple components into the same process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zero_copy.html#using-a-launch-file">5.3.4. Using a launch file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zero_copy.html#limitations">5.3.5. Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gdb_debug.html">5.4. GDB debug</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gdb_debug.html#config-debug">5.4.1. Config debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gdb_debug.html#use-xterm-terminal-to-open-gdb-debugging">5.4.2. Use xterm terminal to open gdb debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="backward_ros.html">5.5. Backward ros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="backward_ros.html#add-backward-ros-as-a-dependency">5.5.1. Add <code class="docutils literal notranslate"><span class="pre">backward_ros</span></code> as a dependency:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="backward_ros.html#configure-cmakelists-txt">5.5.2. Configure <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="backward_ros.html#build-your-project-with-debug-information">5.5.3. Build your project with debug information:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="backward_ros.html#run-your-node">5.5.4. Run your node:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="backward_ros.html#example-backward-ros">5.5.5. Example <code class="docutils literal notranslate"><span class="pre">backward_ros</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cyclonedds_tuning.html">5.6. CycloneDDS tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastdds_tuning.html">5.7. FastDDS tuning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fastdds_tuning.html#adjusting-system-parameters">5.7.1. Adjusting system parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastdds_tuning.html#ip-fragmentation-time">5.7.1.1. IP fragmentation time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastdds_tuning.html#ip-fragmentation-memory-threshold">5.7.1.2. IP fragmentation memory threshold</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastdds_tuning.html#maximum-buffer-sizes">5.7.1.3. Maximum buffer sizes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fastdds_tuning.html#fastdds-configuration">5.7.2. 2. FastDDS configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fastdds_tuning.html#configuration-file-shm-fastdds-xml">5.7.2.1. Configuration file: <code class="docutils literal notranslate"><span class="pre">shm_fastdds.xml</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fastdds_tuning.html#environment-variables">5.7.2.2. Environment variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_tools/tool.html">6. Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../6_tools/tools.html">6.1. Some practical tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#list-devices-node">6.1.1. list_devices_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#list-depth-work-mode-node">6.1.2. list_depth_work_mode_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#list-camera-profile-mode-node">6.1.3. list_camera_profile_mode_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#multi-save-rgbir-node">6.1.4. multi_save_rgbir_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#metadata-save-files-node">6.1.5. metadata_save_files_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6_tools/tools.html#metadata-export-files-node">6.1.6. metadata_export_files_node</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../7_help_center/help_center.html">7. Help center</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../7_help_center/FAQ.html">7.1. FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7_help_center/FAQ.html#unexpected-crash">7.1.1. Unexpected crash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7_help_center/FAQ.html#how-to-quickly-modify-the-default-resolution">7.1.2. How to Quickly Modify the Default Resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7_help_center/FAQ.html#no-data-stream-from-multiple-cameras">7.1.3. No data stream from multiple cameras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7_help_center/FAQ.html#additional-troubleshooting">7.1.4. Additional troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7_help_center/FAQ.html#why-are-there-so-many-yaml-files">7.1.5. Why are there so many yaml files?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../7_help_center/issues.html">7.2. Issue</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../8_license/sdk_license.html">8. License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../8_license/license.html">8.1. OrbbecSDK_ROS2 license</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OrbbecSDK ROS2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="advanced.html"><span class="section-number">5. </span>Advanced</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>Multiple cameras synchronization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/source/5_advanced/multi_camera_sync.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <!-- docs/source/6_advanced/multi_camera_sync.md --><section id="multiple-cameras-synchronization">
+<h1><span class="section-number">5.1. </span>Multiple cameras synchronization<a class="headerlink" href="#multiple-cameras-synchronization" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Table of contents</p>
+<ul>
+<li><p><a class="reference external" href="#preparation">Preparation</a></p></li>
+<li><p><a class="reference external" href="#check-the-camera-usb-port">Check the camera usb port</a></p></li>
+<li><p><a class="reference external" href="#configure-multi_camera_synced.launch.py">Configure multi_camera_synced.launch.py</a></p></li>
+<li><p><a class="reference external" href="#run-multi_camera_synced.launch.py">Run multi_camera_synced.launch.py</a></p></li>
+<li><p><a class="reference external" href="#advanced-parameters">Advanced Parameters</a></p></li>
+<li><p><a class="reference external" href="#gmsl-example">Gmsl example</a></p></li>
+<li><p>[suggestions for multiple cameras synchronization](#suggestions for multiple cameras synchronization)</p></li>
+</ul>
+</li>
+</ul>
+<section id="preparation">
+<h2><span class="section-number">5.1.1. </span>Preparation<a class="headerlink" href="#preparation" title="Link to this heading"></a></h2>
+<p>First, please read the user documentation:<a class="reference external" href="https://www.orbbec.com/docs/set-up-cameras-for-external-synchronization_v1-2/">https://www.orbbec.com/docs/set-up-cameras-for-external-synchronization_v1-2/</a></p>
+<p>Secondly,make sure the cameras are properly connected to the multi-camera synchronizer</p>
+<p><img alt="Multi_camera1" src="../../_images/Sync_connect.png" /></p>
+</section>
+<section id="check-the-camera-usb-port">
+<h2><span class="section-number">5.1.2. </span>Check the camera usb port<a class="headerlink" href="#check-the-camera-usb-port" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>orbbec_camera<span class="w"> </span>list_devices_node
+</pre></div>
+</div>
+<p>Output:</p>
+<p><img alt="Multi_camera1" src="../../_images/Multi_camera1.png" /></p>
+</section>
+<section id="configure-multiple-cameras-synced">
+<h2><span class="section-number">5.1.3. </span>Configure multiple cameras synced<a class="headerlink" href="#configure-multiple-cameras-synced" title="Link to this heading"></a></h2>
+<p>Open <code class="docutils literal notranslate"><span class="pre">orbbec_multicamera.launch.py</span></code>, the camera configuration is as shown below</p>
+<p>You can replace <code class="docutils literal notranslate"><span class="pre">multicamera.yaml</span> </code>with other yaml files, such as <code class="docutils literal notranslate"><span class="pre">multicamera_synced.yaml</span></code></p>
+<p><img alt="Multi_camera1" src="../../_images/Multi_camera5.png" /></p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">multicamera_synced.yaml</span></code>，the camera configuration is as shown below</p>
+<p><img alt="Multi_camera1" src="../../_images/Multi_camera6.png" /></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">note</span><span class="p">:</span> <span class="n">gemini330_series_sync_front_camera</span><span class="o">.</span><span class="n">yaml</span>  <span class="ow">is</span> <span class="n">the</span> <span class="n">camera</span> <span class="n">configuration</span> <span class="n">file</span><span class="o">.</span>
+</pre></div>
+</div>
+<p><strong>When configuring multiple cameras sync, you need to pay attention to the following parameters:</strong></p>
+<p>1.<strong>camera_name</strong></p>
+<p>camera_name is set to front_camera, for example, the color image topic name is /front_camera/color/image_raw”</p>
+<p>2.<strong>usb_port</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">usb_port</span></code> parameter specifies the USB port number to which the camera is connected. In your example, “2-7” indicates that the camera devices connected to USB ports 2 through 7 are started. You can use the command <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span> <span class="pre">orbbec_camera</span> <span class="pre">list_devices_node</span></code> to view the device port numbers.</p>
+<p>Please ensure that these port numbers match your actual hardware cameras. If you have more cameras or cameras connected to different ports, you need to configure the corresponding port number for each device.</p>
+<p>3.<strong>device_num</strong></p>
+<p>The device_num parameter indicates the number of cameras to be started. Please ensure that this value matches the number of cameras you want to start and does not exceed the number of cameras actually connected or the system’s processing capacity.</p>
+<p>4.<strong>sync_mode</strong></p>
+<p>sync_mode is set to software_triggering, indicating that the 2-7 camera device is set to software trigger mode, and the selection of multiple cameras synchronization mode can refer to the following table.</p>
+<p>Please refer to the<a class="reference external" href="https://www.orbbec.com/docs-general/set-up-cameras-for-external-synchronization_v1-2/#">multi-camera synchronization mode definition description</a> for details.</p>
+<p><img alt="Multi_camera1" src="../../_images/Multi_camera7_1.png" />
+<img alt="Multi_camera1" src="../../_images/Multi_camera7_2.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">multicamera_synced.yaml</span></code>  describes the camera startup order, the host must be started last</p>
+<p><img alt="Multi_camera1" src="../../_images/Multi_camera6.png" /></p>
+</section>
+<section id="run-multicamera-synced-launch-py">
+<h2><span class="section-number">5.1.4. </span>Run <code class="docutils literal notranslate"><span class="pre">multicamera_synced.launch.py</span></code><a class="headerlink" href="#run-multicamera-synced-launch-py" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>orbbec_camera<span class="w"> </span>multicamera_synced.launch.py
+</pre></div>
+</div>
+</section>
+<section id="advanced-sync-parameters">
+<h2><span class="section-number">5.1.5. </span>Advanced sync parameters<a class="headerlink" href="#advanced-sync-parameters" title="Link to this heading"></a></h2>
+<p>Some camera parameters are related to multi-camera sync</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Camera parameters</th>
+<th>action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>trigger_out_enabled</td>
+<td>Trigger signal switch setting</td>
+</tr>
+<tr>
+<td>trigger2image_delay_us</td>
+<td>Configure the secondarydepth delay and secondarycolor delay</td>
+</tr>
+<tr>
+<td>trigger_out_delay_us</td>
+<td>Trigger signal delay</td>
+</tr>
+<tr>
+<td>frames_per_trigger</td>
+<td>Software trigger frequency(used with software_trigger_period)</td>
+</tr>
+<tr>
+<td>software_trigger_period</td>
+<td>Software trigger interval(used with frames_per_trigger)</td>
+</tr>
+</tbody>
+</table></section>
+<section id="gmsl-camera-example">
+<h2><span class="section-number">5.1.6. </span>GMSL camera example<a class="headerlink" href="#gmsl-camera-example" title="Link to this heading"></a></h2>
+<p><strong>Key Distinctions Between GMSL and USB Devices:</strong></p>
+<p><strong>1.usb_port Configuration:</strong></p>
+<p>• For USB cameras, the port is specified as:   usb_port: “2-3”</p>
+<p>• For GMSL cameras, the port should be designated as:   usb_port: “gmsl2-3”</p>
+<p><strong>2.Color Stream Format Compatibility:</strong></p>
+<p>• It is important to note that GMSL devices do not support the MJPG color format. Consequently, the format must be switched to YUYV when utilizing GMSL equipment.</p>
+</section>
+<section id="suggestions-for-multiple-cameras-synchronization">
+<h2><span class="section-number">5.1.7. </span>suggestions for multiple cameras synchronization<a class="headerlink" href="#suggestions-for-multiple-cameras-synchronization" title="Link to this heading"></a></h2>
+<p>When configuring multiple cameras, there are several additional points to consider:</p>
+<p>1.Power Supply: Ensure that each camera receives sufficient power supply. Simultaneous operation of multiple high-power devices can put strain on the USB bus.</p>
+<p>2.Bandwidth Limitations: Simultaneous data transfer from multiple cameras can strain the USB bus or network bandwidth. Consider using higher bandwidth connections (such as USB 3.0 or higher) or optimizing data transfer settings.</p>
+<p>3.Synchronization Issues: If you require time synchronization between multiple cameras, ensure that your system supports and is properly configured for camera synchronization.</p>
+<p>4.Software Configuration: In ROS, you may need to configure separate nodes and topics for each camera to ensure they do not conflict. Using namespaces and the parameter server can help manage these configurations.</p>
+<p>Finally, do not forget to conduct thorough testing before deployment to ensure that all cameras function correctly and that system performance meets expectations.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advanced.html" class="btn btn-neutral float-left" title="5. Advanced" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="component_node.html" class="btn btn-neutral float-right" title="5.2. Component node" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, ORBBEC INC. www.orbbec.com.cn.
+      <span class="lastupdated">Last updated on 2024-12-23 11:30:17.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
